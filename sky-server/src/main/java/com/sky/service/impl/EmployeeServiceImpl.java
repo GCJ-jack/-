@@ -16,12 +16,14 @@ import com.sky.exception.PasswordErrorException;
 import com.sky.mapper.EmployeeMapper;
 import com.sky.result.PageResult;
 import com.sky.service.EmployeeService;
+//import com.sun.tools.javac.comp.Todo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -46,6 +48,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         //2、处理各种异常情况（用户名不存在、密码不对、账号被锁定）
         if (employee == null) {
             //账号不存在
+            System.out.println("没有账号");
             throw new AccountNotFoundException(MessageConstant.ACCOUNT_NOT_FOUND);
         }
 
@@ -67,34 +70,35 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     /**
-     * 新增员工
+     * 员工信息保存
      * @param employeeDTO
+     * @return
      */
+
     @Override
-    public void save(EmployeeDTO employeeDTO) {
+    public void save(EmployeeDTO employeeDTO){
+
         Employee employee = new Employee();
+        // 对象的属性拷贝
+        BeanUtils.copyProperties(employeeDTO,employee);
 
-        //对象属性拷贝
-        BeanUtils.copyProperties(employeeDTO, employee);
-
-        //设置账号的状态，默认正常状态 1表示正常 0表示锁定
+        // 设置默认账号的状态 默认1表示正常 0表示被封禁
         employee.setStatus(StatusConstant.ENABLE);
 
-        //设置密码，默认密码123456
+        // 设置账号密码 同时md5 加密 默认为123456
         employee.setPassword(DigestUtils.md5DigestAsHex(PasswordConstant.DEFAULT_PASSWORD.getBytes()));
 
-        //设置当前记录的创建时间和修改时间
+        // 创立当前设立时间
+        // 创立当前修改时间
         employee.setCreateTime(LocalDateTime.now());
         employee.setUpdateTime(LocalDateTime.now());
 
-//        通过ThreadLocal获取用户信息
-        Long currentId = BaseContext.getCurrentId();
+        // 设置为当前记录人id和修改人的id
+        // TODO 后期修改为当前登录的用户的id
+        employee.setId(10L);
+        employee.setId(10L);
 
-        //设置当前记录创建人id和修改人id
-        employee.setCreateUser(currentId);//目前写个假数据，后期修改
-        employee.setUpdateUser(currentId);
-
-        employeeMapper.insert(employee);//后续步骤定义
+        employeeMapper.insert(employee);
     }
 
     /**

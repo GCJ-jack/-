@@ -18,10 +18,18 @@ public interface EmployeeMapper {
      * @param username
      * @return
      */
+
     Employee getByUsername(@Param("username") String username);
 
+//    /**
+//     * 插入员工数据
+//     * @param employee
+//     */
+//    @AutoFill(OperationType.INSERT)
+//    void insert(Employee employee);
+
     /**
-     * 插入员工数据
+     * 插入员工的数据
      * @param employee
      */
     @AutoFill(OperationType.INSERT)

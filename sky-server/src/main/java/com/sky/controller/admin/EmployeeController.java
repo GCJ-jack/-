@@ -26,7 +26,8 @@ import java.util.Map;
 @RestController
 @RequestMapping("/admin/employee")
 @Slf4j
-@Api(tags = "员工相关接口")
+//@Api(tags = "员工相关接口")
+@Api(tags="员工相关接口")
 public class EmployeeController {
 
     @Autowired
@@ -41,6 +42,7 @@ public class EmployeeController {
      * @return
      */
     @PostMapping("/login")
+    @ApiOperation("员工登录")
     public Result<EmployeeLoginVO> login(@RequestBody EmployeeLoginDTO employeeLoginDTO) {
         log.info("员工登录：{}", employeeLoginDTO);
 
@@ -80,9 +82,9 @@ public class EmployeeController {
      * @return
      */
     @PostMapping
-    @ApiOperation("新增员工")
-    public Result save(@RequestBody EmployeeDTO employeeDTO) {
-        log.info("新增员工：{}",employeeDTO);
+    @ApiOperation(value = "增加员工")
+    public Result save(@RequestBody EmployeeDTO employeeDTO){
+        log.info("新增加员工: " + employeeDTO);
         employeeService.save(employeeDTO);
         return Result.success();
     }
@@ -93,7 +95,7 @@ public class EmployeeController {
      * @return
      */
     @GetMapping("/page")
-    @ApiOperation("员工分页查询")
+//    @ApiOperation("员工分页查询")
     public Result<PageResult> page(EmployeePageQueryDTO employeePageQueryDTO) {
         log.info("员工分页查询，参数为：{}", employeePageQueryDTO);
         PageResult pageResult = employeeService.pageQuery(employeePageQueryDTO);
@@ -107,7 +109,7 @@ public class EmployeeController {
      * @return
      */
     @PostMapping("/status/{status}")
-    @ApiOperation("启用禁用员工账户")
+//    @ApiOperation("启用禁用员工账户")
     public Result startOrStop(@PathVariable Integer status, Long id) {
         log.info("启用禁用员工账户：{}，{}", status, id);
         employeeService.startOrStop(status, id);
@@ -120,7 +122,7 @@ public class EmployeeController {
      * @return
      */
     @GetMapping("/{id}")
-    @ApiOperation("根据iD查询用户信息")
+//    @ApiOperation("根据iD查询用户信息")
     public Result<Employee> getById(@PathVariable Long id) {
         log.info("根据iD查询用户信息：{}", id);
         Employee employee = employeeService.getById(id);
@@ -133,7 +135,8 @@ public class EmployeeController {
      * @return
      */
     @PutMapping
-    @ApiOperation("编辑员工信息")
+//    @ApiOperation("编辑员工信息")
+    @ApiOperation("修改员工信息")
     public Result update(@RequestBody EmployeeDTO employeeDTO) {
         log.info("编辑员工信息：{}", employeeDTO);
         employeeService.update(employeeDTO);
