@@ -5,10 +5,8 @@ import com.sky.annotation.AutoFill;
 import com.sky.dto.EmployeePageQueryDTO;
 import com.sky.entity.Employee;
 import com.sky.enumeration.OperationType;
-import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 
 @Mapper
 public interface EmployeeMapper {
@@ -21,12 +19,6 @@ public interface EmployeeMapper {
 
     Employee getByUsername(@Param("username") String username);
 
-//    /**
-//     * 插入员工数据
-//     * @param employee
-//     */
-//    @AutoFill(OperationType.INSERT)
-//    void insert(Employee employee);
 
     /**
      * 插入员工的数据
@@ -43,17 +35,18 @@ public interface EmployeeMapper {
     Page<Employee> pageQuery(EmployeePageQueryDTO employeePageQueryDTO);
 
     /**
-     * 启用禁用员工账户,编辑员工信息
-     * @param employee
-     */
-    @AutoFill(OperationType.UPDATE)
-    void update(Employee employee);
-
-    /**
-     * 根据iD查询用户信息
+     * 通过id获取员工信息
      * @param id
      * @return
      */
-    Employee getById(@Param("id") Long id);
+    Employee getById(Long id);
+
+    /**
+     * 修改员工信息
+     * @param
+     * @return
+     */
+    @AutoFill(OperationType.UPDATE)
+    void update(Employee employeeDTO);
 
 }

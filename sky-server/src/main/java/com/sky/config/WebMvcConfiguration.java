@@ -75,7 +75,21 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
         return docket;
     }
 
+    /**
+     * 扩展mvc框架的消息转换器
+     * 转换时间到年月日格式
+     * @param converters
+     */
 
+//    protected void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+//        log.info("扩展消息转换器...");
+//        //创建一个消息转换器对象
+//        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+//        //需要为消息转换器设置一个对象转换器，对象转换器可以将Java对象序列化为json数据
+//        converter.setObjectMapper(new JacksonObjectMapper());
+//        //将自己的消息转化器加入容器中
+//        converters.add(0,converter);
+//    }
 
     /**
      * 设置静态资源映射
@@ -86,19 +100,7 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 
-    /**
-     * 扩展Spring MVC框架的消息转化器
-     * @param converters
-     */
-    protected void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
-        log.info("扩展消息转换器...");
-        //创建一个消息转换器对象
-        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-        //需要为消息转换器设置一个对象转换器，对象转换器可以将Java对象序列化为json数据
-        converter.setObjectMapper(new JacksonObjectMapper());
-        //将自己的消息转化器加入容器中
-        converters.add(0,converter);
-    }
+
 
 //    @Bean
 //    public Docket docket1(){

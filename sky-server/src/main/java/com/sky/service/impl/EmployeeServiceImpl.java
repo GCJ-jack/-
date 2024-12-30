@@ -16,11 +16,14 @@ import com.sky.exception.PasswordErrorException;
 import com.sky.mapper.EmployeeMapper;
 import com.sky.result.PageResult;
 import com.sky.service.EmployeeService;
-//import com.sun.tools.javac.comp.Todo;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -76,6 +79,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      */
 
     @Override
+    @ApiOperation(value = "保存员工信息")
     public void save(EmployeeDTO employeeDTO){
 
         Employee employee = new Employee();
@@ -94,7 +98,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setUpdateTime(LocalDateTime.now());
 
         // 设置为当前记录人id和修改人的id
-        // TODO 后期修改为当前登录的用户的id
 
         employee.setCreateUser(BaseContext.getCurrentId());
         employee.setUpdateUser(BaseContext.getCurrentId());
@@ -103,44 +106,41 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     /**
-     * 员工分页查询
+     * 返回查询的页数结果
      * @param employeePageQueryDTO
      * @return
      */
-    @Override
-    public PageResult pageQuery(EmployeePageQueryDTO employeePageQueryDTO) {
-//        开始分页查询
-        PageHelper.startPage(employeePageQueryDTO.getPage(), employeePageQueryDTO.getPageSize());
-
+    @GetMapping("/page")
+    @ApiOperation(value = "分页查询员工信息")
+    public PageResult pageQuery(EmployeePageQueryDTO employeePageQueryDTO){
+        //select * from employee limit 10,20
+        PageHelper.startPage(employeePageQueryDTO.getPage(),employeePageQueryDTO.getPageSize());
         Page<Employee> page = employeeMapper.pageQuery(employeePageQueryDTO);
-
-        long total = page.getTotal();
-        List<Employee> records = page.getResult();
-
-        return new PageResult(total, records);
+        return new PageResult(page.getTotal(),page.getResult());
     }
 
     /**
-     * 启用禁用员工账户
+     * 根据用户的状态和id来启用和禁用
      * @param status
      * @param id
      */
     @Override
     public void startOrStop(Integer status, Long id) {
-        Employee employee = Employee.builder()
-                .status(status)
+        Employee employee = new Employee().builder()
                 .id(id)
+                .status(status)
                 .build();
         employeeMapper.update(employee);
     }
 
+
     /**
-     * 根据iD查询用户信息
+     * 寻找员工通过id
      * @param id
-     * @return
+     *
      */
     @Override
-    public Employee getById(Long id) {
+    public Employee getById(@PathVariable Long id) {
         Employee employee = employeeMapper.getById(id);
         employee.setPassword("****");
         return employee;
@@ -153,11 +153,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public void update(EmployeeDTO employeeDTO) {
         Employee employee = new Employee();
-        BeanUtils.copyProperties(employeeDTO, employee);
-
-        employee.setUpdateTime(LocalDateTime.now());
+        BeanUtils.copyProperties(employeeDTO,employee);
         employee.setUpdateUser(BaseContext.getCurrentId());
+        employee.setCreateUser(BaseContext.getCurrentId());
         employeeMapper.update(employee);
     }
-
 }
