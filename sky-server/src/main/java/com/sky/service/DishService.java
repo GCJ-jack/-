@@ -15,13 +15,22 @@ public interface DishService {
      */
     void saveWithFlavor(DishDTO dishDTO);
 
+
     /**
-     * 菜品分页查询
+     * 分页查询菜品
      * @param dishPageQueryDTO
      * @return
      */
+
     PageResult pageQuery(DishPageQueryDTO dishPageQueryDTO);
 
+//    /**
+//     * 菜品分页查询
+//     * @param dishPageQueryDTO
+//     * @return
+//     */
+//    PageResult pageQuery(DishPageQueryDTO dishPageQueryDTO);
+//
     /**
      * 菜品批量删除
      * @param ids

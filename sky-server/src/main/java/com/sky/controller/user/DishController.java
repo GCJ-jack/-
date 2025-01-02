@@ -1,7 +1,6 @@
 package com.sky.controller.user;
 
 import com.sky.constant.StatusConstant;
-import com.sky.dto.DishDTO;
 import com.sky.entity.Dish;
 import com.sky.result.Result;
 import com.sky.service.DishService;
@@ -14,7 +13,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
 
 @RestController("userDishController")
 @RequestMapping("/user/dish")

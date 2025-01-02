@@ -8,7 +8,6 @@ import com.sky.enumeration.OperationType;
 import com.sky.vo.DishVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 import java.util.Map;
@@ -35,8 +34,15 @@ public interface DishMapper {
      * @param dishPageQueryDTO
      * @return
      */
-    Page<DishVO> pageQuery(DishPageQueryDTO dishPageQueryDTO);
+     Page<DishVO> pageQuery(DishPageQueryDTO dishPageQueryDTO);
 
+//    /**
+//     * 菜品分页查询
+//     * @param dishPageQueryDTO
+//     * @return
+//     */
+//    Page<DishVO> pageQuery(DishPageQueryDTO dishPageQueryDTO);
+//
     /**
      * 获取菜品
      * @param id

@@ -6,10 +6,10 @@ import com.sky.constant.MessageConstant;
 import com.sky.constant.StatusConstant;
 import com.sky.dto.DishDTO;
 import com.sky.dto.DishPageQueryDTO;
+import com.sky.entity.Category;
 import com.sky.entity.Dish;
 import com.sky.entity.DishFlavor;
 import com.sky.entity.Setmeal;
-import com.sky.entity.SetmealDish;
 import com.sky.exception.DeletionNotAllowedException;
 import com.sky.mapper.DishFlavorMapper;
 import com.sky.mapper.DishMapper;
@@ -49,34 +49,46 @@ public class DishServiceImpl implements DishService {
     @Transactional
     public void saveWithFlavor(DishDTO dishDTO) {
         Dish dish = new Dish();
-        BeanUtils.copyProperties(dishDTO, dish);
+        BeanUtils.copyProperties(dishDTO,dish);
 
-//        向菜品表插入1条数据
+
         dishMapper.insert(dish);
 
-//        获取insert语句生成的主键值
+        // 获取菜品的id
         Long dishId = dish.getId();
 
         List<DishFlavor> flavors = dishDTO.getFlavors();
-        if (flavors != null && flavors.size() > 0) {
+
+        if(flavors!=null||flavors.size()>0){
+            //向口味表dish_flavor插入n条
             flavors.forEach(dishFlavor -> dishFlavor.setDishId(dishId));
-//            向口味表插入n条数据
+            //向口味表插入n条数据
             dishFlavorMapper.insertBatch(flavors);
         }
     }
 
-    /**
-     * 菜品分页查询
-     * @param dishPageQueryDTO
-     * @return
-     */
     @Override
-    public PageResult pageQuery(DishPageQueryDTO dishPageQueryDTO) {
-        PageHelper.startPage(dishPageQueryDTO.getPage(), dishPageQueryDTO.getPageSize());
-        Page<DishVO> page=dishMapper.pageQuery(dishPageQueryDTO);
-        return new PageResult(page.getTotal(), page.getResult());
+    public PageResult pageQuery(DishPageQueryDTO dishPageQueryDTO){
+        //select * from dish limit 10,20
+        PageHelper.startPage(dishPageQueryDTO.getPage(),dishPageQueryDTO.getPageSize());
+        Page<DishVO> page = dishMapper.pageQuery(dishPageQueryDTO);
+        return new PageResult(page.getTotal(),page.getResult());
     }
 
+
+
+//    /**
+//     * 菜品分页查询
+//     * @param dishPageQueryDTO
+//     * @return
+//     */
+//    @Override
+//    public PageResult pageQuery(DishPageQueryDTO dishPageQueryDTO) {
+//        PageHelper.startPage(dishPageQueryDTO.getPage(), dishPageQueryDTO.getPageSize());
+//        Page<DishVO> page=dishMapper.pageQuery(dishPageQueryDTO);
+//        return new PageResult(page.getTotal(), page.getResult());
+//    }
+//
     /**
      * 菜品批量删除
      * @param ids
