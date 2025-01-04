@@ -130,16 +130,31 @@ public class DishServiceImpl implements DishService {
      */
     @Override
     public DishVO getByIdWithFlavor(Long id) {
-//        根据id查询菜品数据
+////        根据id查询菜品数据
+//        Dish dish = dishMapper.getById(id);
+//
+////        根据菜品id查询口味数据
+//        List<DishFlavor> dishFlavorList = dishFlavorMapper.getByDishId(id);
+//
+////        将查询到的数据封装到vo
+//        DishVO dishVO = new DishVO();
+//        BeanUtils.copyProperties(dish, dishVO);
+//        dishVO.setFlavors(dishFlavorList);
+//
+//        return dishVO;
+
+        //根据id获得菜品信息
         Dish dish = dishMapper.getById(id);
 
-//        根据菜品id查询口味数据
-        List<DishFlavor> dishFlavorList = dishFlavorMapper.getByDishId(id);
+        //根据dishid获得口味信息
+        List<DishFlavor> flavors = dishFlavorMapper.getByDishId(id);
 
-//        将查询到的数据封装到vo
+        //将查询到的数据封装到vo
         DishVO dishVO = new DishVO();
-        BeanUtils.copyProperties(dish, dishVO);
-        dishVO.setFlavors(dishFlavorList);
+
+        BeanUtils.copyProperties(dishVO,dish);
+
+        dishVO.setFlavors(flavors);
 
         return dishVO;
     }

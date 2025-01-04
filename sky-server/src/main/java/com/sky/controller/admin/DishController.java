@@ -4,10 +4,12 @@ package com.sky.controller.admin;
 import com.sky.dto.DishDTO;
 import com.sky.dto.DishPageQueryDTO;
 import com.sky.entity.Category;
+import com.sky.entity.Dish;
 import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.CategoryService;
 import com.sky.service.DishService;
+import com.sky.vo.DishVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -37,7 +39,7 @@ public class DishController {
      * @return
      */
 
-    @PostMapping
+    @PostMapping()
     @ApiOperation("新增菜品")
     public Result<String> save(@RequestBody DishDTO dishDTO){
         log.info("新增菜品：{}", dishDTO);
@@ -75,6 +77,13 @@ public class DishController {
         return Result.success();
     }
 
+    @GetMapping("/{id}")
+    @ApiOperation("返回具体的菜品信息")
+    public Result<DishVO> getById(@PathVariable Long id){
+        log.info("获取菜品id" + id);
+        DishVO dishVO = dishService.getByIdWithFlavor(id);
+        return Result.success(dishVO);
+    }
 
 
 }

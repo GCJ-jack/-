@@ -39,9 +39,18 @@ public class ShopController {
      */
     @GetMapping("/status")
     @ApiOperation("获取店铺的营业状态")
-    public Result<Integer> getStatus(){
+    public Result<Integer> getStatus() {
         Integer status = (Integer) redisTemplate.opsForValue().get(KEY);
-        log.info("获取到店铺的营业状态为：{}",status == 1 ? "营业中" : "打烊中");
+
+        // 检查 status 是否为 null，并处理默认值
+        if (status == null) {
+            log.warn("未能从缓存中获取店铺状态，设置为默认状态：打烊中");
+            status = 0; // 默认值：0 表示打烊
+        }
+
+        // 日志打印营业状态
+        log.info("获取到店铺的营业状态为：{}", status == 1 ? "营业中" : "打烊中");
+
         return Result.success(status);
     }
 
