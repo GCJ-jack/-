@@ -4,13 +4,19 @@
 <mapper namespace="com.sky.mapper.DishFlavorMapper">
 
 <!--    批量插入口味数据-->
-    <insert id="insertBatch">
-        insert into dish_flavor (dish_id, name, value) VALUES
-             <foreach collection="flavors" separator="," item="item">
-                 (#{item.dishId},#{item.name},#{item.value})
-             </foreach>
-    </insert>
+<!--    <insert id="insertBatch">-->
+<!--        insert into dish_flavor (dish_id, name, value) VALUES-->
+<!--             <foreach collection="flavors" separator="," item="item">-->
+<!--                 (#{item.dishId},#{item.name},#{item.value})-->
+<!--             </foreach>-->
+<!--    </insert>-->
 
+    <insert id="insertBatch" useGeneratedKeys="true" keyProperty="id">
+        insert into dish_flavor (dish_id, name, value) VALUES
+        <foreach collection="flavors" separator="," item="item">
+            (#{item.dishId},#{item.name},#{item.value})
+        </foreach>
+    </insert>
 <!--    删除菜单关联的口味数据-->
     <delete id="deleteByDishId">
         delete
