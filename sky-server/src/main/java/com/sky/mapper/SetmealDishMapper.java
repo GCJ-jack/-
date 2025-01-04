@@ -7,12 +7,15 @@ import java.util.List;
 
 @Mapper
 public interface SetmealDishMapper {
+
     /**
-     * 判断当前菜品是否被套餐关联了
+     * 判断当前的菜品是否被套餐关联
      * @param ids
      * @return
      */
+
     List<Long> getSetmealIdsByDishIds(List<Long> ids);
+
 
     /**
      * 保存套餐和菜品的关联关系

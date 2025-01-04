@@ -48,10 +48,14 @@
         order by d.create_time desc
     </select>
 
-<!--    获取菜品-->
+<!--&lt;!&ndash;    获取菜品&ndash;&gt;-->
+<!--    <select id="getById" resultType="com.sky.entity.Dish">-->
+<!--        select *-->
+<!--        from dish where id=#{id};-->
+<!--    </select>-->
+    <!--    获取菜品-->
     <select id="getById" resultType="com.sky.entity.Dish">
-        select *
-        from dish where id=#{id};
+        select * from dish where id=#{id};
     </select>
 
 <!--    根据分类id查询菜品-->

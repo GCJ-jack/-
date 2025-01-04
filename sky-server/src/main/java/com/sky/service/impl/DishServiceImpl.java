@@ -91,36 +91,36 @@ public class DishServiceImpl implements DishService {
 //
 
     /**
-     * 菜品批量删除
+     * 根据id批量删除菜品
      * @param ids
+     * @return
      */
     @Override
-    @Transactional
-    public void deleteBatch(List<Long> ids) {
-//        判断当前菜品是否能够删除---是否存在起售中的菜品？？
-        ids.forEach(id->{
-            Dish dish = dishMapper.getById(id);
-            if (dish.getStatus() == StatusConstant.ENABLE) {
-//                当前菜品处于起售中，不能删除
-                throw new DeletionNotAllowedException(MessageConstant.DISH_ON_SALE);
-            }
-        });
+    public void deleteBatch(List<Long> ids){
 
-//        判断当前菜品是否能够删除---是否被套餐关联了？？
-        List<Long> setmealIds = setmealDishMapper.getSetmealIdsByDishIds(ids);
-        if (setmealIds != null && setmealIds.size() > 0) {
-//            当前菜品被套餐关联了，不能删除
-            throw new DeletionNotAllowedException(MessageConstant.DISH_BE_RELATED_BY_SETMEAL);
+        ids.forEach(id->{
+            //检查status是否是启用中
+            Dish dish = dishMapper.getById(id);
+            if (dish.getStatus() == StatusConstant.ENABLE){
+                throw new DeletionNotAllowedException(MessageConstant.DISH_ON_SALE);
+                }
+            }
+        );
+
+        //被套餐关联的菜品不能删除
+        List<Long> setMealDishList = setmealDishMapper.getSetmealIdsByDishIds(ids);
+
+        if (setMealDishList==null||setMealDishList.size()>0){
+            throw new DeletionNotAllowedException(MessageConstant.DISH_ON_SALE);
         }
 
-//        删除菜品表中的菜品数据
+
+        //删除菜品后，关联的口味数据也需要删除掉
         ids.forEach(id->{
             dishMapper.deleteById(id);
-
-//            删除菜单关联的口味数据
             dishFlavorMapper.deleteByDishId(id);
-        });
-
+            }
+        );
     }
 
     /**
