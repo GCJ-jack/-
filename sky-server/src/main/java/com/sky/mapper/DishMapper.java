@@ -53,6 +53,7 @@ public interface DishMapper {
      * @param dish
      * @return
      */
+    @AutoFill(OperationType.UPDATE)
     void update(Dish dish);
 
     /**

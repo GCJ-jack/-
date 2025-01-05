@@ -158,7 +158,6 @@ public class DishServiceImpl implements DishService {
             dishFlavorMapper.insertBatch(dishFlavors);
         }
 
-
         dishMapper.update(dish);
     }
 
@@ -192,7 +191,7 @@ public class DishServiceImpl implements DishService {
             DishVO dishVO = new DishVO();
             BeanUtils.copyProperties(d, dishVO);
 
-//            根据菜品id查询对应的口味
+            //  根据菜品id查询对应的口味
             List<DishFlavor> flavors = dishFlavorMapper.getByDishId(d.getId());
 
             dishVO.setFlavors(flavors);
@@ -202,6 +201,15 @@ public class DishServiceImpl implements DishService {
         return dishVOArrayList;
     }
 
+    @Override
+    public void startOrStop(Integer status, Long id) {
+        // 更新菜品的状态根据id
+        Dish dish = new Dish().builder()
+                .id(id)
+                .status(status)
+                .build();
+        dishMapper.update(dish);
+    }
 
 
 }

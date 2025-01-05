@@ -154,8 +154,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void update(EmployeeDTO employeeDTO) {
         Employee employee = new Employee();
         BeanUtils.copyProperties(employeeDTO,employee);
-//        employee.setUpdateUser(BaseContext.getCurrentId());
-//        employee.setCreateUser(BaseContext.getCurrentId());
+
         employeeMapper.update(employee);
     }
 }
