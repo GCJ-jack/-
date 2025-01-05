@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sky.mapper.DishMapper">
-<!--    修改菜品基本信息-->
+    <!--    修改菜品基本信息-->
     <update id="update">
         update dish
         <set>
@@ -15,8 +15,9 @@
             <if test="updateTime != null">update_time = #{updateTime},</if>
             <if test="updateUser != null">update_user = #{updateUser},</if>
         </set>
-            where id =#{id}
+        where id = #{id}
     </update>
+
     <!--    删除菜品表中的菜品数据-->
     <delete id="deleteById">
         delete

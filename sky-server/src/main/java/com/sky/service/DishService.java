@@ -24,13 +24,6 @@ public interface DishService {
 
     PageResult pageQuery(DishPageQueryDTO dishPageQueryDTO);
 
-//    /**
-//     * 菜品分页查询
-//     * @param dishPageQueryDTO
-//     * @return
-//     */
-//    PageResult pageQuery(DishPageQueryDTO dishPageQueryDTO);
-//
     /**
      * 菜品批量删除
      * @param ids
@@ -45,9 +38,11 @@ public interface DishService {
     DishVO getByIdWithFlavor(Long id);
 
     /**
-     * 修改菜品
-     * @param dishDTO
-     */
+     *  *
+     *  根据id修改菜品和关联的口味
+     *  * @param dishDTO
+     *  */
+
     void updateWithFlavor(DishDTO dishDTO);
 
     /**
@@ -64,11 +59,6 @@ public interface DishService {
      */
     List<DishVO> listWithFlavor(Dish dish);
 
-    /**
-     * 菜品起售停售
-     * @param status
-     * @param id
-     */
-    void startOrStop(Integer status, Long id);
+
 
 }

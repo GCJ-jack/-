@@ -36,13 +36,6 @@ public interface DishMapper {
      */
      Page<DishVO> pageQuery(DishPageQueryDTO dishPageQueryDTO);
 
-//    /**
-//     * 菜品分页查询
-//     * @param dishPageQueryDTO
-//     * @return
-//     */
-//    Page<DishVO> pageQuery(DishPageQueryDTO dishPageQueryDTO);
-//
     /**
      * 获取菜品
      * @param id
@@ -57,10 +50,9 @@ public interface DishMapper {
     void deleteById(Long id);
 
     /**
-     * 修改菜品基本信息
      * @param dish
+     * @return
      */
-    @AutoFill(OperationType.UPDATE)
     void update(Dish dish);
 
     /**
