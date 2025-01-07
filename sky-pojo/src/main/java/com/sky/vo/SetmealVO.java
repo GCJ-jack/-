@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -15,8 +16,8 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SetmealVO implements Serializable {
 
+public class SetmealVO implements Serializable {
     private Long id;
 
     //分类id
@@ -45,4 +46,5 @@ public class SetmealVO implements Serializable {
 
     //套餐和菜品的关联关系
     private List<SetmealDish> setmealDishes = new ArrayList<>();
+
 }
