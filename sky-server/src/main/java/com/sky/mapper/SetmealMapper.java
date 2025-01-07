@@ -1,6 +1,8 @@
 package com.sky.mapper;
 
+import com.github.pagehelper.Page;
 import com.sky.annotation.AutoFill;
+import com.sky.dto.SetmealPageQueryDTO;
 import com.sky.entity.Employee;
 import com.sky.entity.Setmeal;
 import com.sky.enumeration.OperationType;
@@ -16,4 +18,6 @@ public interface SetmealMapper {
 
     @AutoFill(OperationType.INSERT)
     void insert(Setmeal setmeal);
+
+    Page<Employee> pageQuery(SetmealPageQueryDTO setmealPageQueryDTO);
 }
