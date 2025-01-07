@@ -17,7 +17,7 @@
     </delete>
 
     <!-- 根据套餐 ID 查询关联的菜品 -->
-    <select id="getBySetmealId" parameterType="Long" resultType="SetmealDish">
+    <select id="getBySetmealId" parameterType="Long" resultType="com.sky.entity.SetmealDish">
         SELECT *
         FROM setmeal_dish
         WHERE setmeal_id = #{setmealId}
