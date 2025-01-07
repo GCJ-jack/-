@@ -20,4 +20,10 @@ public interface SetmealMapper {
     void insert(Setmeal setmeal);
 
     Page<Employee> pageQuery(SetmealPageQueryDTO setmealPageQueryDTO);
+
+    /**
+     * 删除菜品表中的菜品数据
+     * @param id
+     */
+    void deleteById(Long id);
 }

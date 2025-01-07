@@ -8,4 +8,19 @@
             (#{item.setmealId},#{item.dishId},#{item.name},#{item.price},#{item.copies})
         </foreach>
     </insert>
+
+    <!--    删除菜品表中的菜品数据-->
+    <delete id="deleteBySetmealId">
+        delete
+        from setmeal_dish
+        where setmeal_id=#{setmealId};
+    </delete>
+
+    <!-- 根据套餐 ID 查询关联的菜品 -->
+    <select id="getBySetmealId" parameterType="Long" resultType="SetmealDish">
+        SELECT *
+        FROM setmeal_dish
+        WHERE setmeal_id = #{setmealId}
+    </select>
+
 </mapper>
