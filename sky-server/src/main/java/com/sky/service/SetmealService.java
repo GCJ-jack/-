@@ -16,7 +16,6 @@ public interface SetmealService {
     List<Setmeal> list(Setmeal setmeal);
 
 
-
     /**
      * 新增套餐，同时需要保存套餐和菜品的关联关系
      * @param setmealDTO
@@ -39,4 +38,11 @@ public interface SetmealService {
     void deleteBatch(List<Long> ids);
 
     SetmealVO getByIdWithDish(Long id);
+
+
+    /**
+     * 修改套餐
+     * @param setmealDTO
+     */
+    void update(SetmealDTO setmealDTO);
 }

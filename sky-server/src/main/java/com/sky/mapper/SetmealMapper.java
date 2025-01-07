@@ -26,4 +26,6 @@ public interface SetmealMapper {
      * @param id
      */
     void deleteById(Long id);
+
+    void update(Setmeal setmeal);
 }
