@@ -4,7 +4,6 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.sky.constant.MessageConstant;
 import com.sky.constant.StatusConstant;
-import com.sky.dto.EmployeePageQueryDTO;
 import com.sky.dto.SetmealDTO;
 import com.sky.dto.SetmealPageQueryDTO;
 import com.sky.entity.*;
@@ -14,14 +13,12 @@ import com.sky.mapper.SetmealMapper;
 import com.sky.result.PageResult;
 import com.sky.service.SetmealService;
 import com.sky.vo.DishItemVO;
-import com.sky.vo.DishVO;
 import com.sky.vo.SetmealVO;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -142,6 +139,17 @@ public class SetmealServiceImpl implements SetmealService {
         });
 
         setmealDishMapper.insertBatch(setmealDishes);
+    }
+
+    @Override
+    public void startOrStop(Integer status, Long id){
+        Setmeal setmeal = Setmeal
+                            .builder()
+                            .status(status)
+                            .id(id)
+                            .build();
+
+        setmealMapper.update(setmeal);
     }
 
 
