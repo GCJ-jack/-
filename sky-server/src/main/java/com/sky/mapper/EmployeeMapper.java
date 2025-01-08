@@ -4,7 +4,7 @@ import com.github.pagehelper.Page;
 import com.sky.annotation.AutoFill;
 import com.sky.dto.EmployeePageQueryDTO;
 import com.sky.entity.Employee;
-import com.sky.enumeration.OperationType;
+//import com.sky.enumeration.OperationType;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -24,7 +24,7 @@ public interface EmployeeMapper {
      * 插入员工的数据
      * @param employee
      */
-    @AutoFill(OperationType.INSERT)
+//    @AutoFill(OperationType.INSERT)
     void insert(Employee employee);
 
     /**
@@ -46,7 +46,7 @@ public interface EmployeeMapper {
      * @param
      * @return
      */
-    @AutoFill(OperationType.UPDATE)
+//    @AutoFill(OperationType.UPDATE)
     void update(Employee employeeDTO);
 
 }
