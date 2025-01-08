@@ -12,25 +12,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController("userShopController")
 @RequestMapping("/user/shop")
-@Api(tags = "店铺相关接口")
 @Slf4j
+@Api("用户端店铺详情")
 public class ShopController {
+
+    @Autowired
+    RedisTemplate redisTemplate;
 
     public static final String KEY = "SHOP_STATUS";
 
-    @Autowired
-    private RedisTemplate redisTemplate;
-
-    /**
-     * 获取店铺的营业状态
-     * @return
-     */
     @GetMapping("/status")
-    @ApiOperation("获取店铺的营业状态")
-    public Result<Integer> getStatus() {
+    @ApiOperation("返回客户端商铺状态")
+    public Result<Integer> getStatus(){
         Integer status = (Integer) redisTemplate.opsForValue().get(KEY);
         log.info("获取到店铺的营业状态为：{}",status == 1 ? "营业中" : "打烊中");
         return Result.success(status);
     }
-
 }

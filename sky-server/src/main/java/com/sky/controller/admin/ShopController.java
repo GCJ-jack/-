@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Key;
 
-@RestController()
+@RestController("adminShopController")
 @RequestMapping("/admin/shop")
 @Api(tags = "卖家端商铺接口")
 @Slf4j
