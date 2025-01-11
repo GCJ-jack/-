@@ -30,35 +30,20 @@ import java.util.Objects;
 public class UserController {
 
     @Autowired
-    private UserService userService;
+    JwtProperties jwtProperties;
 
     @Autowired
-    private JwtProperties jwtProperties;
+    UserService userService;
 
-    /**
-     * 微信登录
-     * @param userLoginDTO
-     * @return
-     */
+    /** * C端用户登录--微信登录
+     * * @param userLoginDTO
+     * * @return */
     @PostMapping("/login")
-    @ApiOperation("微信登录")
-    public Result<UserLoginVO> login(@RequestBody UserLoginDTO userLoginDTO) {
-        log.info("微信用户登录：{}",userLoginDTO.getCode());
+    @ApiOperation("登录")
+    public Result<UserLoginVO> login(){
 
-//        微信登录
-        User user = userService.wxLogin(userLoginDTO);
-
-//        为微信用户生成jwt令牌
-        HashMap<String, Object> claims = new HashMap<>();
-        claims.put(JwtClaimsConstant.USER_ID, user.getId());
-        String token = JwtUtil.createJWT(jwtProperties.getUserSecretKey(), jwtProperties.getUserTtl(), claims);
-
-        UserLoginVO userLoginVO = UserLoginVO.builder()
-                .id(user.getId())
-                .openid(user.getOpenid())
-                .token(token)
-                .build();
-        return Result.success(userLoginVO);
+        return Result.success();
     }
+
 
 }
