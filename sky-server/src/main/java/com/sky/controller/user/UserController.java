@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -40,10 +41,20 @@ public class UserController {
      * * @return */
     @PostMapping("/login")
     @ApiOperation("登录")
-    public Result<UserLoginVO> login(){
+    public Result<UserLoginVO> login(@RequestBody UserLoginDTO userLoginDTO){
+        User user = userService.wxLogin(userLoginDTO);
 
-        return Result.success();
+        Map claims = new HashMap();
+        claims.put(JwtClaimsConstant.USER_ID, user.getId());
+        String token = JwtUtil.createJWT(jwtProperties.getUserSecretKey(), jwtProperties.getUserTtl(), claims);
+
+        UserLoginVO userLoginVO = UserLoginVO
+            .builder()
+            .id(user.getId())
+            .token(token)
+            .openid(user.getOpenid())
+            .build();
+
+        return Result.success(userLoginVO);
     }
-
-
 }
