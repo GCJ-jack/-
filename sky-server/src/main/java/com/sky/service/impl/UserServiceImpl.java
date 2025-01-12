@@ -47,6 +47,7 @@ public class UserServiceImpl implements UserService {
 
         //如果没有得到openid抛出异常
         if(openId==null){
+            System.out.println("openid的值 " + null);
             throw new LoginFailedException(MessageConstant.LOGIN_FAILED);
         }
 
