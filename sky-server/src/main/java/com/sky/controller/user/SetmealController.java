@@ -1,7 +1,5 @@
 package com.sky.controller.user;
 
-
-import com.sky.constant.MessageConstant;
 import com.sky.constant.StatusConstant;
 import com.sky.entity.Setmeal;
 import com.sky.result.Result;
@@ -14,16 +12,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.List;
 
 @RestController("userSetmealController")
 @RequestMapping("/user/setmeal")
-@Api(tags = "用户套餐")
+@Api(tags = "C端-套餐浏览接口")
 public class SetmealController {
-
     @Autowired
-    SetmealService setmealService;
+    private SetmealService setmealService;
 
     /**
      * 条件查询
@@ -49,7 +45,7 @@ public class SetmealController {
      * @return
      */
     @GetMapping("/dish/{id}")
-    @ApiOperation("返回套餐相关菜品")
+    @ApiOperation("根据套餐id查询包含的菜品列表")
     public Result<List<DishItemVO>> dishList(@PathVariable("id") Long id) {
         List<DishItemVO> list = setmealService.getDishItemById(id);
         return Result.success(list);
