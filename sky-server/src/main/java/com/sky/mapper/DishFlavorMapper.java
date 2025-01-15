@@ -2,7 +2,7 @@ package com.sky.mapper;
 
 import com.sky.annotation.AutoFill;
 import com.sky.entity.DishFlavor;
-//import com.sky.enumeration.OperationType;
+import com.sky.enumeration.OperationType;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -10,6 +10,7 @@ import java.util.List;
 @Mapper
 public interface DishFlavorMapper {
 //    批量插入口味数据
+    @AutoFill(OperationType.INSERT)
     void insertBatch(List<DishFlavor> flavors);
 
 //    删除菜单关联的口味数据

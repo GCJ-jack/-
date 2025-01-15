@@ -36,7 +36,7 @@ public class SetmealController {
 
     @PostMapping
     @ApiOperation("新增套餐")
-    @CacheEvict(cacheNames = "setmealCache", key = "#setmealDTO.categoryId")
+    @CacheEvict(cacheNames = "setmealCache", key = "#setmealDTO.categoryId")//key: setmealCache::100
     public Result<String> save(@RequestBody SetmealDTO setmealDTO){
         log.info("添加套餐 " + setmealDTO);
         setmealService.saveWithDish(setmealDTO);
@@ -53,7 +53,7 @@ public class SetmealController {
 
     @DeleteMapping()
     @ApiOperation("根据id来删除套餐")
-    @CacheEvict(cacheNames = "setmealCache", allEntries = true)
+    @CacheEvict(cacheNames = "setmealCache", allEntries = true)//key: setmealCache::100
     public Result<String> delete(@RequestParam List<Long> ids){
         setmealService.deleteBatch(ids);
         return Result.success();
@@ -69,7 +69,7 @@ public class SetmealController {
      */
     @PutMapping()
     @ApiOperation("更新套餐状态")
-    @CacheEvict(cacheNames = "setmealCache", key = "#setmealDTO.categoryId")
+    @CacheEvict(cacheNames = "setmealCache", key = "#setmealDTO.categoryId")//key: setmealCache::100
     public Result<String> update(@RequestBody SetmealDTO setmealDTO){
         log.info("套餐状态" + setmealDTO);
         setmealService.update(setmealDTO);
