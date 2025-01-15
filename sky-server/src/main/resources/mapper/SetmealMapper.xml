@@ -69,5 +69,13 @@
         </where>
     </select>
 
+    <select id="getDishItemBySetmealId" parameterType="Setmeal" resultType="com.sky.vo.DishItemVO">
+        select sd.name, sd.copies, d.image, d.description from setmeal_dish sd left join dish d on sd.dish_id = d.id
+        <where>
+            <if test="setmealId != null">
+                and sd.setmeal_id = #{setmealId}
+            </if>
+        </where>
+    </select>
 
 </mapper>
