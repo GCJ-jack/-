@@ -25,7 +25,7 @@
 <!--    </update>-->
 <!--    -->
     <update id="updateNumberById">
-        update shopping_cart set amount = #{amount} where id=#{id};
+        update shopping_cart set number = #{number} where id=#{id};
     </update>
 
     <delete id="deleteByUserId">

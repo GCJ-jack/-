@@ -43,10 +43,13 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         shoppingCart.setUserId(BaseContext.getCurrentId());
         List<ShoppingCart> shoppingCartList = shoppingCartMapper.list(shoppingCart);
         //判断当前购物车里面是否存在此商品
+        log.info("已有该货物的数量 "+ shoppingCartList.size());
         if(shoppingCartList!=null&&shoppingCartList.size()==1){
             //如果已经存在数量增加1
             shoppingCart = shoppingCartList.get(0);
+
             shoppingCart.setNumber(shoppingCart.getNumber() + 1);
+            log.info("添加后的货品数量 " + shoppingCart.getNumber());
             shoppingCartMapper.updateNumberById(shoppingCart);
         }else {
             //如果不存在数量加一
