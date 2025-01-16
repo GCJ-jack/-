@@ -123,7 +123,7 @@ public class OrderServiceImpl implements OrderService {
         orderDetailMapper.insertBatch(orderDetailList);
 
 //        清理购物车中的数据
-        shoppingCartMapper.deleteByUserId(currentId);
+//        shoppingCartMapper.deleteByUserId(currentId);
 
 //        封装返回结果
         OrderSubmitVO submitVO = OrderSubmitVO.builder()
@@ -329,7 +329,7 @@ public class OrderServiceImpl implements OrderService {
         }).collect(Collectors.toList());
 
 //        将购物车对象批量添加到购物车
-        shoppingCartMapper.insertBatch(shoppingCartList);
+//        shoppingCartMapper.insertBatch(shoppingCartList);
     }
 
     /**

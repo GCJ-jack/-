@@ -1,13 +1,19 @@
 package com.sky.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import java.io.Serializable;
+import lombok.NoArgsConstructor;
 
 @Data
-public class ShoppingCartDTO implements Serializable {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class ShoppingCartDTO {
 
-    private Long dishId;
-    private Long setmealId;
     private String dishFlavor;
 
+    private Long dishId;
+
+    private Long setmealId;
 }

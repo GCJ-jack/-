@@ -17,11 +17,15 @@
         </foreach>
     </insert>
 
-    <!--    更新商品数量-->
+<!--        更新商品数量-->
+<!--    <update id="updateNumberById">-->
+<!--        update shopping_cart-->
+<!--        set amount = #{amount}-->
+<!--        where id=#{id};-->
+<!--    </update>-->
+<!--    -->
     <update id="updateNumberById">
-        update shopping_cart
-        set amount = #{amount}
-        where id=#{id};
+        update shopping_cart set amount = #{amount} where id=#{id};
     </update>
 <!--    清空购物车商品-->
     <delete id="deleteByUserId">
@@ -36,13 +40,25 @@
         where id=#{id};
     </delete>
 
-    <!--    条件查询-->
+
+<!--    <select id="list" resultType="com.sky.entity.ShoppingCart">-->
+<!--        select *-->
+<!--        from shopping_cart-->
+<!--        <where>-->
+<!--            <if test="userId!=null">and user_id=#{userId}</if>-->
+<!--            <if test="dishId!=null">and dish_id=#{dishId}</if>-->
+<!--            <if test="setmealId!=null">and setmeal_id=#{setmealId}</if>-->
+<!--            <if test="dishFlavor!=null">and dish_flavor=#{dishFlavor}</if>-->
+<!--        </where>-->
+<!--        order by create_time desc-->
+<!--    </select>-->
+
+
     <select id="list" resultType="com.sky.entity.ShoppingCart">
-        select *
-        from shopping_cart
+        select * from shopping_cart
         <where>
-            <if test="userId!=null">and user_id=#{userId}</if>
-            <if test="dishId!=null">and dish_id=#{dishId}</if>
+            <if test="userId!=null"> and user_id=#{userId}</if>
+            <if test="dishId!=null"> and dish_id=#{dishId}</if>
             <if test="setmealId!=null">and setmeal_id=#{setmealId}</if>
             <if test="dishFlavor!=null">and dish_flavor=#{dishFlavor}</if>
         </where>

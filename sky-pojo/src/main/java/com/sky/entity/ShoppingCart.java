@@ -9,15 +9,11 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-/**
- * 购物车
- */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class ShoppingCart implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
     private Long id;
