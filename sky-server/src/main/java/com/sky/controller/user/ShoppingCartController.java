@@ -45,4 +45,12 @@ public class ShoppingCartController {
         shoppingCartService.cleanShoppingCart(BaseContext.getCurrentId());
         return Result.success();
     }
+
+    @PostMapping("/sub")
+    @ApiOperation("删除一项购物车中已有的商品")
+    public Result<String> sub(@RequestBody ShoppingCartDTO shoppingCartDTO){
+        shoppingCartService.subShoppingCart(shoppingCartDTO);
+        return Result.success();
+    }
+
 }

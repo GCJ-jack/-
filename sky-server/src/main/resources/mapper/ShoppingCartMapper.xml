@@ -32,6 +32,12 @@
         delete from shopping_cart where user_id = #{userId};
     </delete>
 
+    <delete id="deleteById">
+        delete
+        from shopping_cart
+        where id=#{id};
+    </delete>
+
 
     <select id="list" resultType="com.sky.entity.ShoppingCart">
         select * from shopping_cart
