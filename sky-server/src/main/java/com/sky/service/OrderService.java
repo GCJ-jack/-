@@ -29,15 +29,15 @@ public interface OrderService {
      */
     void paySuccess(String outTradeNo);
 //
-//    /**
-//     * 历史订单查询
-//     *
-//     * @param pageNum
-//     * @param pageSize
-//     * @param status   订单状态 1待付款 2待接单 3已接单 4派送中 5已完成 6已取消
-//     * @return
-//     */
-//    PageResult pageQueryForUser(int pageNum, int pageSize, Integer status);
+    /**
+     * 历史订单查询
+     *
+     * @param pageNum
+     * @param pageSize
+     * @param status   订单状态 1待付款 2待接单 3已接单 4派送中 5已完成 6已取消
+     * @return
+     */
+    PageResult pageQueryForUser(int pageNum, int pageSize, Integer status);
 //
 //    /**
 //     * 查询订单详情
