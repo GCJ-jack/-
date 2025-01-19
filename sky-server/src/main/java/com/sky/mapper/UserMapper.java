@@ -15,7 +15,7 @@ public interface UserMapper {
      * @param id
      * @return
      */
-    User getById(String id);
+    User getById(Long id);
 
     /**
      * 根据openid获取当前用户

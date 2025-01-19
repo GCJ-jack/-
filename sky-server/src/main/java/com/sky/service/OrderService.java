@@ -2,6 +2,7 @@ package com.sky.service;
 
 import com.sky.dto.*;
 import com.sky.result.PageResult;
+import com.sky.vo.OrderPaymentVO;
 import com.sky.vo.OrderSubmitVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -15,18 +16,18 @@ public interface OrderService {
      */
     OrderSubmitVO submitOrder(OrdersSubmitDTO ordersSubmitDTO);
 
-//    /**
-//     * 订单支付
-//     * @param ordersPaymentDTO
-//     * @return
-//     */
-//    OrderPaymentVO payment(OrdersPaymentDTO ordersPaymentDTO) throws Exception;
-//
-//    /**
-//     * 支付成功，修改订单状态
-//     * @param outTradeNo
-//     */
-//    void paySuccess(String outTradeNo);
+    /**
+     * 订单支付
+     * @param ordersPaymentDTO
+     * @return
+     */
+    OrderPaymentVO payment(OrdersPaymentDTO ordersPaymentDTO) throws Exception;
+
+    /**
+     * 支付成功，修改订单状态
+     * @param outTradeNo
+     */
+    void paySuccess(String outTradeNo);
 //
 //    /**
 //     * 历史订单查询
