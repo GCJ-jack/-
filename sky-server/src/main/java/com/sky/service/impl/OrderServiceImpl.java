@@ -19,6 +19,7 @@ import com.sky.utils.WeChatPayUtil;
 import com.sky.vo.OrderPaymentVO;
 import com.sky.vo.OrderSubmitVO;
 import com.sky.vo.OrderVO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 public class OrderServiceImpl implements OrderService {
 
 
@@ -169,37 +171,36 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public PageResult pageQueryForUser(int pageNum, int pageSize, Integer status) {
 
-        //设置分页
-
-        //select * from category limit 10,20
+        // 设置分页
         PageHelper.startPage(pageNum,pageSize);
-
         OrdersPageQueryDTO ordersPageQueryDTO = new OrdersPageQueryDTO();
+
         ordersPageQueryDTO.setUserId(BaseContext.getCurrentId());
         ordersPageQueryDTO.setStatus(status);
 
         // 分页条件查询
         Page<Orders> page = orderMapper.pageQuery(ordersPageQueryDTO);
 
-        List<OrderVO> list = new ArrayList();
+        List<OrderVO> list = new ArrayList<>();
+
 
         // 查询出订单明细，并封装入OrderVO进行响应
-        if (page != null && page.getTotal() > 0) {
-            for (Orders orders : page) {
-                Long orderId = orders.getId();// 订单id
+        if(page!=null && page.getTotal() > 0){
+            for (Orders orders : page){
+                Long orderId = orders.getId();
 
                 // 查询订单明细
-                List<OrderDetail> orderDetails = orderDetailMapper.getByOrderId(orderId);
+                List<OrderDetail> orderDetailList = orderDetailMapper.getByOrderId(orderId);
 
                 OrderVO orderVO = new OrderVO();
+
                 BeanUtils.copyProperties(orders, orderVO);
-                orderVO.setOrderDetailList(orderDetails);
+
+                orderVO.setOrderDetailList(orderDetailList);
 
                 list.add(orderVO);
             }
         }
-
-
         return new PageResult(page.getTotal(),list);
     }
 //
@@ -218,10 +219,15 @@ public class OrderServiceImpl implements OrderService {
 //        return null;
 //    }
 //
-//    @Override
-//    public OrderVO details(Long id) {
-//        return null;
-//    }
+    @Override
+    public OrderVO details(Long id) {
+        OrderVO orderVO = new OrderVO();
+        List<OrderDetail> orderDetailList = orderDetailMapper.getByOrderId(id);
+        Orders orders = orderMapper.getById(id);
+        BeanUtils.copyProperties(orders,orderVO);
+        orderVO.setOrderDetailList(orderDetailList);
+        return orderVO;
+    }
 //
 //    @Override
 //    public void userCancelById(Long id) throws Exception {

@@ -4,6 +4,7 @@ import com.sky.dto.*;
 import com.sky.result.PageResult;
 import com.sky.vo.OrderPaymentVO;
 import com.sky.vo.OrderSubmitVO;
+import com.sky.vo.OrderVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +39,24 @@ public interface OrderService {
      * @return
      */
     PageResult pageQueryForUser(int pageNum, int pageSize, Integer status);
+
+    //
+    //    @Override
+    //    public OrderPaymentVO payment(OrdersPaymentDTO ordersPaymentDTO) throws Exception {
+    //        return null;
+    //    }
+    //
+    //    @Override
+    //    public void paySuccess(String outTradeNo) {
+    //
+    //    }
+    //
+    //    @Override
+    //    public PageResult pageQueryForUser(int pageNum, int pageSize, Integer status) {
+    //        return null;
+    //    }
+    //
+    OrderVO details(Long id);
 //
 //    /**
 //     * 查询订单详情

@@ -32,4 +32,9 @@ public interface OrderMapper {
      * @param
      */
     Page<Orders> pageQuery(OrdersPageQueryDTO ordersPageQueryDTO);
+
+    Orders details(Long id);
+
+
+    Orders getById(Long id);
 }
