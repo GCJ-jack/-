@@ -40,6 +40,13 @@ public interface OrderService {
      */
     PageResult pageQueryForUser(int pageNum, int pageSize, Integer status);
 
+    /**
+     * 再来一单
+     * @param id
+     * @return
+     */
+    void repetition(Long id);
+
     //
     //    @Override
     //    public OrderPaymentVO payment(OrdersPaymentDTO ordersPaymentDTO) throws Exception {
