@@ -47,6 +47,23 @@ public interface OrderService {
      */
     void repetition(Long id);
 
+    /**
+     * 订单搜索
+     * @param ordersPageQueryDTO
+     * @return
+     */
+
+    PageResult conditionSearch(OrdersPageQueryDTO ordersPageQueryDTO);
+
+
+
+    /**
+     * 拒单
+     *
+     * @param ordersRejectionDTO
+     */
+    void rejection(OrdersRejectionDTO ordersRejectionDTO) throws Exception;
+
     //
     //    @Override
     //    public OrderPaymentVO payment(OrdersPaymentDTO ordersPaymentDTO) throws Exception {

@@ -7,6 +7,7 @@ import com.sky.constant.MessageConstant;
 import com.sky.context.BaseContext;
 import com.sky.dto.OrdersPageQueryDTO;
 import com.sky.dto.OrdersPaymentDTO;
+import com.sky.dto.OrdersRejectionDTO;
 import com.sky.dto.OrdersSubmitDTO;
 import com.sky.entity.*;
 import com.sky.exception.AddressBookBusinessException;
@@ -113,9 +114,6 @@ public class OrderServiceImpl implements OrderService {
                 .build();
         return orderSubmitVO;
     }
-
-
-
 
     /**
      * 订单支付
@@ -237,6 +235,55 @@ public class OrderServiceImpl implements OrderService {
         }
 
         shoppingCartMapper.insertBatch(shoppingCartList);
+    }
+
+    @Override
+    public PageResult conditionSearch(OrdersPageQueryDTO ordersPageQueryDTO) {
+        PageHelper.startPage(ordersPageQueryDTO.getPage(),ordersPageQueryDTO.getPageSize());
+        Page<Orders> page = orderMapper.pageQuery(ordersPageQueryDTO);
+        return new PageResult(page.getTotal(),page.getResult());
+    }
+
+
+    /**
+     * 拒单
+     *
+     * @param ordersRejectionDTO
+     */
+    public void rejection(OrdersRejectionDTO ordersRejectionDTO) throws Exception {
+
+        //获得订单id
+        Long orderId = ordersRejectionDTO.getId();
+        //根据id查询订单
+        Orders orderDB = orderMapper.getById(orderId);
+        //商家拒单其实就是将订单状态修改为“已取消”
+        //只有订单处于“待接单”状态时可以执行拒单操作
+        if(orderDB == null && orderDB.getStatus() != Orders.TO_BE_CONFIRMED){
+            throw new OrderBusinessException(MessageConstant.ORDER_STATUS_ERROR);
+        }
+
+        //支付状态
+        Integer payStatus = orderDB.getPayStatus();
+
+        if (payStatus == Orders.PAID) {
+            //用户已支付，需要退款
+            String refund = weChatPayUtil.refund(
+                    orderDB.getNumber(),
+                    orderDB.getNumber(),
+                    new BigDecimal(0.01),
+                    new BigDecimal(0.01));
+            log.info("申请退款：{}", refund);
+        }
+
+        Orders orders = new Orders();
+
+        //商家拒单时需要指定拒单原因
+        orders.setRejectionReason(ordersRejectionDTO.getRejectionReason());
+        orders.setId(ordersRejectionDTO.getId());
+        orders.setStatus(Orders.CANCELLED);
+        orders.setCancelTime(LocalDateTime.now());
+        //商家拒单时，如果用户已经完成了支付，需要为用户退款
+        orderMapper.update(orders);
     }
 
     //
