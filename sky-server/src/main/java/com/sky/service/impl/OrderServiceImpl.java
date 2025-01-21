@@ -5,10 +5,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.sky.constant.MessageConstant;
 import com.sky.context.BaseContext;
-import com.sky.dto.OrdersPageQueryDTO;
-import com.sky.dto.OrdersPaymentDTO;
-import com.sky.dto.OrdersRejectionDTO;
-import com.sky.dto.OrdersSubmitDTO;
+import com.sky.dto.*;
 import com.sky.entity.*;
 import com.sky.exception.AddressBookBusinessException;
 import com.sky.exception.OrderBusinessException;
@@ -283,6 +280,34 @@ public class OrderServiceImpl implements OrderService {
         orders.setStatus(Orders.CANCELLED);
         orders.setCancelTime(LocalDateTime.now());
         //商家拒单时，如果用户已经完成了支付，需要为用户退款
+        orderMapper.update(orders);
+    }
+
+    @Override
+    public void cancel(OrdersCancelDTO ordersCancelDTO) throws Exception {
+        //获得订单id
+        Long orderId = ordersCancelDTO.getId();
+        //根据id查询订单
+        Orders orderDB = orderMapper.getById(orderId);
+        //获取订单状态
+        Integer status = orderDB.getPayStatus();
+
+        //如果订单状态等于已付款 那么需要对用户进行退款
+        if(status==1){
+            //用户已支付，需要退款
+            String refund = weChatPayUtil.refund(
+                    orderDB.getNumber(),
+                    orderDB.getNumber(),
+                    new BigDecimal(0.01),
+                    new BigDecimal(0.01));
+            log.info("申请退款：{}", refund);
+        }
+
+        Orders orders = new Orders();
+        orders.setId(orderDB.getId());
+        orders.setCancelTime(LocalDateTime.now());
+        orders.setCancelReason(ordersCancelDTO.getCancelReason());
+        orders.setStatus(Orders.CANCELLED);
         orderMapper.update(orders);
     }
 

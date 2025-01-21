@@ -64,6 +64,13 @@ public interface OrderService {
      */
     void rejection(OrdersRejectionDTO ordersRejectionDTO) throws Exception;
 
+
+    /**
+     * 取消订单
+     * @param ordersCancelDTO
+     */
+    void cancel(OrdersCancelDTO ordersCancelDTO) throws Exception;
+
     //
     //    @Override
     //    public OrderPaymentVO payment(OrdersPaymentDTO ordersPaymentDTO) throws Exception {
@@ -126,11 +133,7 @@ public interface OrderService {
 //     */
 //    void rejection(OrdersRejectionDTO ordersRejectionDTO) throws Exception;
 //
-//    /**
-//     * 取消订单
-//     * @param ordersCancelDTO
-//     */
-//    void cancel(OrdersCancelDTO ordersCancelDTO) throws Exception;
+
 //
 //    /**
 //     * 派送订单
