@@ -101,6 +101,14 @@ public interface OrderService {
      * @param id
      */
     void userCancelById(Long id) throws Exception;
+
+
+    /**
+     * 派送订单
+     *
+     * @param id
+     */
+    void delivery(Long id);
 //
 //    /**
 //     * 再来一单
